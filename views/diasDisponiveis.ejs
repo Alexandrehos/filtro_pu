@@ -1,0 +1,23 @@
+<form action="tabelas" method="POST">
+    <div class="form-group">
+        <textarea type="text" name="entradaTexto" cols="1" rows="1"><%= entradaTexto %></textarea>
+        <p>Status diponiveis:</p>
+        <ul>
+            <li><input type="checkbox" name="status[Validos]" value="Validos">Validos</li>
+            <li><input type="checkbox" name="status[Gerados]" value="Gerados" checked>Gerados</li>
+            <li><input type="checkbox" name="status[Usados]" value="Usados">Usados</li>
+            <li><input type="checkbox" name="status[Cancelados]" value="Cancelados">Cancelados</li>
+        </ul>
+    </div>
+    <div class="form-group">
+        Dias disponiveis:
+        <ul>
+        <% for(i=0; i<listaFiltrada.datas.length; i++){ %>
+            <li><input type="checkbox" name="diasEscolhidos[<%= listaFiltrada.datas[i] %>]" value="<%= listaFiltrada.datas[i] %>"><%= listaFiltrada.datas[i] %></li>
+        <% } %>
+        </ul>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Pronto">
+    </div>
+</form>
