@@ -10,15 +10,19 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended:true}));
 
 var filtro = require("./filtro.js");
+var sort = require("./sort.js");
 
 //Rotas:
 app.get("/", function(req, res){
+    console.log("Temos um acesso")
     res.render("entrada");
 });
 
 app.post("/diasDisponiveis", function(req, res){
     var entradaTexto = req.body.entradaTexto;
     listaFiltrada = filtro(entradaTexto);
+    listaFiltrada["datas"] = sort(listaFiltrada["datas"])
+    console.log("Inseriu o texto, vamos ver...")
     res.render("diasDisponiveis",{listaFiltrada: listaFiltrada, entradaTexto: entradaTexto});
 });
 
@@ -28,6 +32,7 @@ app.post("/tabelas", function(req, res){
         entradaTexto = req.body.entradaTexto;
     listaFiltrada = filtro(entradaTexto);
     // console.log(listaFiltrada["07/04"]["15:00"]["Br/Pr até 12"]["Gerados"], listaStatus)
+    console.log("chegou até aqui!!")
     res.render("tabelas", {listaDias: listaDias, listaStatus: listaStatus, listaFiltrada: listaFiltrada});
 });
 
@@ -43,7 +48,7 @@ app.get("*",function(req, res){
 const http = require('http');
 
 const hostname = '0.0.0.0';
-const port = 3000;
+const port = 12674;
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;

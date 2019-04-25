@@ -1,0 +1,47 @@
+.tabelaDia{
+    margin: auto;
+    padding: 1px 10px 10px;
+    background-color: rgba(247, 247, 247, 0.45);
+    border-radius: 10px;
+    box-shadow: 10px 9px 28px 5px rgba(0, 0, 0, 0.363);
+}
+
+@media screen and (min-width: 800px) {
+    .tabelaDia{
+        width: 95%px;
+    }
+}
+
+
+.dia {
+    text-align: center;
+    font-size: 400%;
+    font-weight: bold;
+}
+
+.status {
+    text-align: center;
+    font-size: 150%;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+p {
+    margin: 0.3em;
+}
+
+table {
+    /* border-collapse:separate; */
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 200%;
+  }
+
+  
+  th, td {
+    text-align: center;
+    padding: 8px;
+    
+  }
+  
+  tr:nth-child(odd) {background-color: rgba(0, 0, 0, 0.3);}

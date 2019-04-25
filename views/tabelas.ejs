@@ -1,36 +1,56 @@
-<% for(i=0; i < listaDias.length; i++){ %>
-    <%= listaDias[i] %>
-    <% for(a=0; a < listaStatus.length; a++){ %>
-        <% horarios = Object.keys(listaFiltrada[listaDias[i]]) %>
-        <% setores = ['Br/Pr até 12', 'Ouro até 12', 'Bronze', 'Prata', 'Ouro'] %>
-        <%= listaStatus[a] %>
-        <table>
-            <tr>
-                <th></th>
-                <th>Infantil</th>
-                <th>Infantil Ouro</th>
-                <th>Bronze</th>
-                <th>Prata</th>
-                <th>Ouro</th>
-            </tr>
-            <% for(b=0; b < horarios.length; b++){ %>
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+    <title>Filtro</title>
+    <link rel="stylesheet" href="stylesheets/base.css">
+    <link rel="stylesheet" href="stylesheets/tabela.css">
+</head>
+<body>
+        <link rel="stylesheet" href="stylesheets/base.css">
+        <link rel="stylesheet" href="stylesheets/tabela.css">
+<% for(i= listaDias.length -1; i >= 0; i--){ %>
+    <div class="tabelaDia">
+        <p class="dia"><%= listaDias[i] %></p>
+        <% for(a=0; a < listaStatus.length; a++){ %>
+            <% horarios = Object.keys(listaFiltrada[listaDias[i]]) %>
+            <% setores = ['Br/Pr até 12', 'Ouro até 12', 'Bronze', 'Prata', 'Ouro'] %>
+            <table>
                 <tr>
-                    <th><%= horarios[b] %></th>
-                    <% for(c=0; c< setores.length; c++){ %>
-                        <th>
-                            <% if(typeof(listaFiltrada[listaDias[i]][horarios[b]][setores[c]]) == "undefined"){ %>
-                                <%= 0 %>
-                            <% } else { %>
-                                <%= listaFiltrada[listaDias[i]][horarios[b]][setores[c]][listaStatus[a]] %>
-                            <% } %>
-                            <%=  %>
-                        </th>
-                    <% } %>
+                    <th colspan="7" class="status <%= listaStatus[a] %>"><%= listaStatus[a] %></th>  
                 </tr>
-            <% } %>
-        </table>
-        <p></p>
-    <% } %>
+                <tr>
+                    <th></th>
+                    <th>Infantil</th>
+                    <th>Inf Ouro</th>
+                    <th>Bronze</th>
+                    <th>Prata</th>
+                    <th>Ouro</th>
+                    <th>Total</th>
+                </tr>
+                <% for(b=0; b < horarios.length; b++){ %>
+                    <tr>
+                        <th><%= horarios[b] %></th>
+                        <% Tot = 0 %>
+                        <% for(c=0; c< setores.length; c++){ %>
+                            <th>
+                                <% if(typeof(listaFiltrada[listaDias[i]][horarios[b]][setores[c]]) == "undefined"){ %>
+                                    <%= 0 %>
+                                <% } else { %>
+                                    <%= listaFiltrada[listaDias[i]][horarios[b]][setores[c]][listaStatus[a]] %>
+                                    <% Tot += listaFiltrada[listaDias[i]][horarios[b]][setores[c]][listaStatus[a]] %>
+                                <% } %>
+                                <%=  %>
+                            </th>
+                        <% } %>
+                        <th><%= Tot %></th>
+                    </tr>
+                <% } %>
+            </table>
+            <br>
+        <% } %>
+    </div>
+    <br>
 <% } %>
 
-
+</body></html>

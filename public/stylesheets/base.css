@@ -1,0 +1,25 @@
+body{
+    background: #d9a7c7;  /* fallback for old browsers */
+    background: linear-gradient(to right, #fcfcfc, #271c83); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: rgb(39, 38, 38);
+}
+
+.Gerados{
+    background-color: rgba(0, 17, 255, 0.5);
+    color: rgb(223, 223, 223);
+}
+
+.Usados{
+    background-color: rgba(231, 197, 0, 0.749);
+    color: rgb(223, 223, 223);
+}
+
+.Validos{
+    background-color: rgba(61, 192, 0, 0.749);
+    color: rgb(223, 223, 223);
+}
+
+.Cancelados{
+    background-color: rgba(255, 60, 0, 0.749);
+    color: rgb(223, 223, 223);
+}￼
