@@ -4,63 +4,69 @@
 <head>
     <title>Filtro</title>
     <link rel="stylesheet" href="stylesheets/base.css">
-    <!-- <link rel="stylesheet" href="stylesheets/diasDisponiveis.css"> -->
+    <link rel="stylesheet" href="stylesheets/diasDisponiveis.css">
 </head>
-<body>
+<body></body>
 <div id="caixaToda">
-    <br>
     <form action="tabelas" method="POST">
         <div class="form-group">
             <textarea type="text" name="entradaTexto" cols="1" rows="1">
                     <%= entradaTexto %>
             </textarea>
-            <p class="titulo">Status diponiveis:</p>
-            <label><input type="checkbox" name="status[Validos]" value="Validos"><div class="opcao status Validos">Validos</div></label>
-            <label><input type="checkbox" name="status[Gerados]" value="Gerados" checked="checked"><div class="opcao selecionado status Gerados">Gerados</div></label>
-            <label><input type="checkbox" name="status[Usados]" value="Usados"><div class="opcao status Usados">Usados</div></label>
-            <label><input type="checkbox" name="status[Cancelados]" value="Cancelados"><div class="opcao status Cancelados">Cancelados</div></label>
+            <textarea type="text" name="setoresEdias" cols="1" rows="1">
+            </textarea>
+            <div class="proxPasso">
+                <div class="form-group">
+                    <button type="submit" name="myButton" id="botaoProxPasso" onclick="selecionados()" value="foo">Tudo certo!</button>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <p class="titulo">Dias disponiveis:</p>
-            
-                <% for(i=0; i<listaFiltrada.datas.length; i++){ %>
-                    <label>
-                        <input 
-                            type="checkbox" 
-                            name="diasEscolhidos[<%= listaFiltrada.datas[i] %>]" 
-                            value="<%= listaFiltrada.datas[i] %>"
-                            <% if(i<4){ %>
-                                checked="checked"
-                            <% } %>
-                            >
-                            <div class="opcao 
+    </form>
+    <br>
+    <div class="containerOp">
+        <p class="titulo">Status diponiveis:</p>
+        <div class="opcoes">
+            <button id="validos" class="opcao selecionado validos">Validos</button>
+            <button id="gerados" class="opcao gerados">Gerados</button>
+            <button id="usados" class="opcao usados">Usados</button>
+            <button id="cancelados" class="opcao cancelados">Cancelados</button>
+        </div>
+    </div>
+    <div class="containerOp">
+        <p class="titulo">Dias disponiveis:</p>
+        <div class="opcoes">
+            <% for(i=0; i<listaFiltrada.datas.length; i++){ %>
+                    <button id="<%= listaFiltrada.datas[i] %>"
+                            class="opcao 
                             <% if(i<4){ %>
                                 selecionado 
                             <% } %>
-                            DiaStilo">
+                            ">
                         <%= listaFiltrada.datas[i] %>
-                        </div>
-                    </label>
-                <% } %>
+                    </button>
+            <% } %>
         </div>
-        <br>
-        <div class="opcao proxPasso">
-                <div class="form-group">
-                    Pronto
-                    <input type="submit" value="Pronto">
-                </div>
-        </div>
-    </form>
+    </div>
 </div>
 <script>
     opcao = document.getElementsByClassName('opcao');
     marcadas = document.getElementsByTagName("input")
     for(i=0; i<opcao.length; i++){
         opcao[i].addEventListener("click", function(){
-            this.classList.toggle('selecionado')
+            this.classList.toggle('selecionado');
         })
     }
-
+    function selecionados(){
+        elementos = document.getElementsByClassName('selecionado');
+        formulario = document.forms[0];
+        var escolhidos = [];
+        for(i=0; i < elementos.length; i++){
+            escolhidos.push(elementos[i].id);
+        }
+        console.log(escolhidos)
+        formulario.elements["setoresEdias"].value = escolhidos;
+    }
+</script>
 </body>
 </body>
 </html>

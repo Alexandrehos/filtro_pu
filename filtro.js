@@ -58,10 +58,10 @@ function limpaQuantidade(quantidade) {
         qtdeInt[a] = parseInt(qtdeInt[a]);
     }
     cuponsFinal = {
-        Gerados: qtdeInt[0],
-        Cancelados: qtdeInt[1],
-        Usados: qtdeInt[2],
-        Validos: qtdeInt[0] - qtdeInt[2] - qtdeInt[1]
+        gerados: qtdeInt[0],
+        cancelados: qtdeInt[1],
+        usados: qtdeInt[2],
+        validos: qtdeInt[0] - qtdeInt[2] - qtdeInt[1]
     };
     return cuponsFinal;
 }

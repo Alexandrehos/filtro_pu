@@ -4,22 +4,17 @@
 <head>
     <title>Filtro</title>
     <link rel="stylesheet" href="stylesheets/base.css">
+    <link rel="stylesheet" href="stylesheets/entrada.css">
 </head>
 <body>
-    Copie o texto da pagina e cole nesta caixa:
+    <p class="titulo">Copie o texto da pagina e cole nesta caixa:</p>
     <p></p>
     <form action="/diasDisponiveis" method="POST">
         <textarea type="text" name="entradaTexto" cols="60" rows="20">
+                
         </textarea>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <p>Após colar, clique neste botão:</p>
-        <input type="submit" value="Pronto">
+        <p class="titulo">Após colar, clique neste botão:</p>
+        <button type="submit" name="myButton" id="botaoProxPasso" onclick="selecionados()" value="foo">Tudo certo!</button>
     </form>
 </body>
 </html>

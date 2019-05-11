@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+    <title>Filtro</title>
+    <link rel="stylesheet" href="stylesheets/base.css">
+    <link rel="stylesheet" href="stylesheets/diasDisponiveis.css">
+</head>
+<body>
+<div id="caixaToda">
+    <br>
+    <form action="tabelas" method="POST">
+        <div class="form-group">
+            <textarea type="text" name="entradaTexto" cols="1" rows="1">
+                    <%= entradaTexto %>
+            </textarea>
+            <p class="titulo">Status diponiveis:</p>
+            <label><div class="opcao status Validos"><input type="checkbox" name="status[Validos]" value="Validos">Validos</div></label>
+            <label><div class="opcao selecionado status Gerados"><input type="checkbox" name="status[Gerados]" value="Gerados" checked="checked">Gerados</div></label>
+            <label><div class="opcao status Usados"><input type="checkbox" name="status[Usados]" value="Usados">Usados</div></label>
+            <label><div class="opcao status Cancelados"><input type="checkbox" name="status[Cancelados]" value="Cancelados">Cancelados</div></label>
+        </div>
+        <div class="form-group">
+            <p class="titulo">Dias disponiveis:</p>
+            
+                <% for(i=0; i<listaFiltrada.datas.length; i++){ %>
+                    <label>
+                        <input 
+                            type="checkbox" 
+                            name="diasEscolhidos[<%= listaFiltrada.datas[i] %>]" 
+                            value="<%= listaFiltrada.datas[i] %>"
+                            <% if(i<4){ %>
+                                checked="checked"
+                            <% } %>
+                            >
+                            <div class="opcao 
+                            <% if(i<4){ %>
+                                selecionado 
+                            <% } %>
+                            DiaStilo">
+                        <%= listaFiltrada.datas[i] %>
+                        </div>
+                    </label>
+                <% } %>
+        </div>
+        <br>
+        <div class="opcao proxPasso">
+                <div class="form-group">
+                    Pronto
+                    <input type="submit" value="Pronto">
+                </div>
+        </div>
+    </form>
+</div>
+<script>
+    opcao = document.getElementsByClassName('opcao');
+    marcadas = document.getElementsByTagName("input")
+    for(i=0; i<opcao.length; i++){
+        opcao[i].addEventListener("click", function(){
+            this.classList.toggle('selecionado')
+        })
+    }
+</script>
+</body>
+</body>
+</html>

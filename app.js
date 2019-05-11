@@ -11,10 +11,11 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 var filtro = require("./filtro.js");
 var sort = require("./sort.js");
+var separa = require("./sortDias.js")
 
 //Rotas:
 app.get("/", function(req, res){
-    console.log("Temos um acesso")
+    console.log("Temos um acesso | ", Date())
     res.render("entrada");
 });
 
@@ -22,17 +23,19 @@ app.post("/diasDisponiveis", function(req, res){
     var entradaTexto = req.body.entradaTexto;
     listaFiltrada = filtro(entradaTexto);
     listaFiltrada["datas"] = sort(listaFiltrada["datas"])
-    console.log("Inseriu o texto, vamos ver...")
+    console.log("2a etapa acessada | ", Date())
     res.render("diasDisponiveis",{listaFiltrada: listaFiltrada, entradaTexto: entradaTexto});
 });
 
 app.post("/tabelas", function(req, res){
-    var listaStatus = Object.keys(req.body.status),
-        listaDias = Object.keys(req.body.diasEscolhidos),
+    var setoresEdias = req.body.setoresEdias,
         entradaTexto = req.body.entradaTexto;
     listaFiltrada = filtro(entradaTexto);
-    // console.log(listaFiltrada["07/04"]["15:00"]["Br/Pr até 12"]["Gerados"], listaStatus)
-    console.log("chegou até aqui!!")
+    listaDias = separa.dias(setoresEdias)
+    listaStatus = separa.status(setoresEdias)
+    console.log("3a etapa acessada | ", Date())
+    // console.log(setoresEdias)
+    // console.log(listaStatus, "e aqui a lista de Dias: ", listaDias)
     res.render("tabelas", {listaDias: listaDias, listaStatus: listaStatus, listaFiltrada: listaFiltrada});
 });
 
