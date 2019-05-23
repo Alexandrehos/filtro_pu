@@ -3,10 +3,15 @@ function filtro(textoInicial) {
         final = {},
         setores = {
             'Bronze ou Prata R$14.': 'Br/Pr até 12',
+            'Bronze ou PrataR$14.':  'Br/Pr até 12',
             'Ouro R$19.': 'Ouro até 12',
+            'OuroR$19.': 'Ouro até 12',
             'Bronze R$23.': 'Bronze',
+            'BronzeR$23.': 'Bronze',
             'Prata R$31.': 'Prata',
-            'Ouro R$39.': 'Ouro'
+            'PrataR$31.': 'Prata',
+            'Ouro R$39.': 'Ouro',
+            'OuroR$39.': 'Ouro'
         },
         linhasSeparadas = textoInicial.match(/\d+\/\d.+\$.+/g);
     
@@ -28,7 +33,7 @@ function filtro(textoInicial) {
         // Aqui separamos o setor da linha
         setor = setores[linhaAtual.match(/[B-P].+R\$\d+\./)[0]];
         // por fim a quantidade
-        quantidadeTemp = linhaAtual.slice(linhaAtual.match(/\.90/)['index'] + 4);
+        quantidadeTemp = linhaAtual.slice(linhaAtual.match(/\.90/)['index'] + 3);
         cupons = limpaQuantidade(quantidadeTemp);
         if (!(setor in final[dia][hora])) {
             final[dia][hora][setor] = cupons;
@@ -54,6 +59,58 @@ function limpaHora(hora) {
  
 function limpaQuantidade(quantidade) {
     qtdeInt = quantidade.match(/\d+/g);
+    if(qtdeInt.length > 1){
+        return separaLegacy(qtdeInt)
+    } else {
+        return separaNovo(qtdeInt)
+    }
+}
+
+function separaNovo(qtdeInt){
+    if(qtdeInt[0].length === 3){
+        cuponsFinal = {
+            gerados: Number(qtdeInt[0][0]),
+            cancelados: Number(qtdeInt[0][1]),
+            usados: Number(qtdeInt[0][2]),
+            validos: qtdeInt[0][0] - qtdeInt[0][1] - qtdeInt[0][2]
+        };
+        return cuponsFinal
+    } else if(qtdeInt[0].length === 4) {
+        cuponsFinal = {
+            gerados: Number(qtdeInt[0].slice(0,2)),
+            cancelados: Number(qtdeInt[0][2]),
+            usados: Number(qtdeInt[0][3]),
+            validos: qtdeInt[0].slice(0,2) - qtdeInt[0][2] - qtdeInt[0][3]
+        };
+        return cuponsFinal
+    } else if(qtdeInt[0].length === 5) {
+        cuponsFinal = {
+            gerados: Number(qtdeInt[0].slice(0,2)),
+            cancelados: Number(qtdeInt[0][2]),
+            usados: Number(qtdeInt[0].slice(-2)),
+            validos: qtdeInt[0].slice(0,2) - qtdeInt[0][2] - qtdeInt[0].slice(-2)
+        };
+        return cuponsFinal
+    } else if(qtdeInt[0].length === 6) {
+        cuponsFinal = {
+            gerados: Number(qtdeInt[0].slice(0,2)),
+            cancelados: Number(qtdeInt[0].slice(2,-2)),
+            usados: Number(qtdeInt[0].slice(-2)),
+            validos: qtdeInt[0].slice(0,2) - qtdeInt[0].slice(2,-2) - qtdeInt[0].slice(-2)
+        };
+        return cuponsFinal
+    } else if(qtdeInt[0].length === 7) {
+        cuponsFinal = {
+            gerados: Number(qtdeInt[0].slice(0,2)),
+            cancelados: Number(qtdeInt[0].slice(2,-2)),
+            usados: Number(qtdeInt[0].slice(-2)),
+            validos: qtdeInt[0].slice(0,2) - qtdeInt[0].slice(2,-2) - qtdeInt[0].slice(-2)
+        };
+        console.log(qtdeInt[0], cuponsFinal)
+    }
+}
+
+function separaLegacy(qtdeInt){
     for (a = 0; a < qtdeInt.length; a++) {
         qtdeInt[a] = parseInt(qtdeInt[a]);
     }
